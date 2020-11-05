@@ -61,6 +61,9 @@
             "name": "[parameters('authorisation-generator_function_name')]",
             "location": "West Europe",
             "kind": "functionapp",
+            "dependsOn": [
+                "[concat('Microsoft.Web/serverfarms/', parameters('serverfarm_name'))]"
+            ],
             "properties": {
                 "enabled": true,
                 "hostNameSslStates": [
