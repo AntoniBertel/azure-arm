@@ -22,7 +22,7 @@ steps:
     location: 'West Europe'
     templateLocation: 'Linked artifact'
     csmFile: 'uni-notification-services-sandbox/Authorisation-function.json'
-    overrideParameters: '-projectName Notification_Services_Sandbox -linkedTemplateUri https://raw.githubusercontent.com/AntoniBertel/azure-arm/master/uni-notification-services-sandbox/Authorisation-function.json'
+    # overrideParameters: '-projectName Notification_Services_Sandbox -linkedTemplateUri https://raw.githubusercontent.com/AntoniBertel/azure-arm/master/uni-notification-services-sandbox/Authorisation-function.json'
     deploymentMode: 'Incremental'
 - script: |
   displayName: 'Creating resources'
