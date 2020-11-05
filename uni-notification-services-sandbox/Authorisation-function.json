@@ -10,8 +10,8 @@
             "defaultValue": "Authorisation Generator",
             "type": "String"
         },
-        "serverfarms_ASP_tiesunirg_aa6e_externalid": {
-            "defaultValue": "/subscriptions/62e4896e-5402-4e86-903f-ec3ab988f9c6/resourceGroups/t-ies-uni-rg/providers/Microsoft.Web/serverfarms/ASP-tiesunirg-aa6e",
+        "serverfarm_name": {
+            "defaultValue": "Sandbox Servicefarm",
             "type": "String"
         }
     },
@@ -29,6 +29,30 @@
                 "RetentionInDays": 30,
                 "publicNetworkAccessForIngestion": "Enabled",
                 "publicNetworkAccessForQuery": "Enabled"
+            }
+        },
+                {
+            "type": "Microsoft.Web/serverfarms",
+            "apiVersion": "2018-02-01",
+            "name": "[parameters('serverfarm_name')]",
+            "location": "West Europe",
+            "sku": {
+                "name": "Y1",
+                "tier": "Dynamic",
+                "size": "Y1",
+                "family": "Y",
+                "capacity": 0
+            },
+            "kind": "functionapp",
+            "properties": {
+                "perSiteScaling": false,
+                "maximumElasticWorkerCount": 1,
+                "isSpot": false,
+                "reserved": false,
+                "isXenon": false,
+                "hyperV": false,
+                "targetWorkerCount": 0,
+                "targetWorkerSizeId": 0
             }
         },
         {
@@ -51,7 +75,7 @@
                         "hostType": "Repository"
                     }
                 ],
-                "serverFarmId": "[parameters('serverfarms_ASP_tiesunirg_aa6e_externalid')]",
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarm_name'))]",
                 "reserved": false,
                 "isXenon": false,
                 "hyperV": false,
