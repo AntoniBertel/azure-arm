@@ -1,0 +1,28 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- script: echo Creating Sandbox resources
+  displayName: 'Init'
+- task: AzureResourceManagerTemplateDeployment@3
+  inputs:
+    deploymentScope: 'Resource Group'
+    azureResourceManagerConnection: 'T-IeS-UNI'
+    subscriptionId: '62e4896e-5402-4e86-903f-ec3ab988f9c6'
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: 't-ies-uni-rg'
+    location: 'West Europe'
+    templateLocation: 'Linked artifact'
+    csmFile: 'uni-notification-services-sandbox/Authorisation-function.json'
+    overrideParameters: '-projectName 'Notification Services Sandbox' -linkedTemplateUri https://raw.githubusercontent.com/AntoniBertel/azure-arm/master/uni-notification-services-sandbox/Authorisation-function.json'
+    deploymentMode: 'Incremental'
+- script: |
+  displayName: 'Creating resources'
