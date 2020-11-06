@@ -3,15 +3,15 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "authorisation-generator_function_name": {
-            "defaultValue": "Authorisation_Generator",
+            "defaultValue": "Authorisation-Generator",
             "type": "String"
         },
         "authorisation-generator_insights_name": {
-            "defaultValue": "Authorisation_Generator",
+            "defaultValue": "Authorisation-Generator",
             "type": "String"
         },
         "serverfarm_name": {
-            "defaultValue": "Sandbox_Servicefarm",
+            "defaultValue": "Sandbox-Servicefarm",
             "type": "String"
         }
     },
