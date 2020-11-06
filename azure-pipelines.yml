@@ -1,8 +1,3 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
 - master
 
@@ -21,7 +16,7 @@ steps:
     resourceGroupName: 't-ies-uni-rg'
     location: 'West Europe'
     templateLocation: 'Linked artifact'
-    csmFile: 'uni-notification-services-sandbox/Authorisation-function.json'
+    csmFile: 'uni-notification-services-sandbox/Sandbox.json'
     # overrideParameters: '-projectName Notification_Services_Sandbox -linkedTemplateUri https://raw.githubusercontent.com/AntoniBertel/azure-arm/master/uni-notification-services-sandbox/Authorisation-function.json'
     deploymentMode: 'Incremental'
 - script: |

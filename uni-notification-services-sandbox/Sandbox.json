@@ -1,0 +1,51 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "authorisation-generator_insights_name": {
+            "defaultValue": "Notification-Services-Sandbox",
+            "type": "String"
+        }
+    },
+    "variables": {
+        // "linked-template": "https://raw.githubusercontent.com/neilpeterson/arm-deployment-demo/master/linked-tempate/artifacts/storage.json"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "name": "storageAccount",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "relativePath": "./StorageAccount.json"
+                }
+            }
+        },
+        {
+            "type": "microsoft.insights/components",
+            "apiVersion": "2018-05-01-preview",
+            "name": "[parameters('authorisation-generator_insights_name')]",
+            "location": "westeurope",
+            "kind": "web",
+            "properties": {
+                "Application_Type": "web",
+                "Request_Source": "rest",
+                "RetentionInDays": 30,
+                "publicNetworkAccessForIngestion": "Enabled",
+                "publicNetworkAccessForQuery": "Enabled"
+            }
+        },
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "name": "functions",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "relativePath": "./Functions.json"
+                }
+            }
+        }
+    ]
+}
