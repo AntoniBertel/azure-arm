@@ -18,7 +18,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "relativePath": "uni-notification-services-sandbox/StorageAccount.json"
+                    "relativePath": "/uni-notification-services-sandbox/StorageAccount.json"
                 }
             }
         },
@@ -43,7 +43,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "relativePath": "uni-notification-services-sandbox/Functions.json"
+                    "relativePath": "/Functions.json"
                 }
             }
         }
