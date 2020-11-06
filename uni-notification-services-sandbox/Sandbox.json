@@ -279,6 +279,19 @@
                 "href": "https://notification-services-sandbox.scm.azurewebsites.net/api/functions/Authorization-Notification",
                 "config": {}
             }
+        },
+        {
+            "type": "Microsoft.Web/sites/hostNameBindings",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('function_app_name'), '/', parameters('function_app_name'), '.azurewebsites.net')]",
+            "location": "West Europe",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('function_app_name'))]"
+            ],
+            "properties": {
+                "siteName": "to-remove",
+                "hostNameType": "Verified"
+            }
         }
         // End cloud functions
     ]
