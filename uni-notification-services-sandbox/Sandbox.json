@@ -37,32 +37,32 @@
                 "name": "Standard_LRS",
                 "tier": "Standard"
             },
-            "kind": "StorageV2",
-            "properties": {
-                "minimumTlsVersion": "TLS1_2",
-                "allowBlobPublicAccess": false,
-                "networkAcls": {
-                    "bypass": "AzureServices",
-                    "virtualNetworkRules": [],
-                    "ipRules": [],
-                    "defaultAction": "Deny"
-                },
-                "supportsHttpsTrafficOnly": true,
-                "encryption": {
-                    "services": {
-                        "file": {
-                            "keyType": "Account",
-                            "enabled": true
-                        },
-                        "blob": {
-                            "keyType": "Account",
-                            "enabled": true
-                        }
-                    },
-                    "keySource": "Microsoft.Storage"
-                },
-                "accessTier": "Cool"
-            }
+            "kind": "StorageV2"
+            // "properties": {
+            //     "minimumTlsVersion": "TLS1_2",
+            //     "allowBlobPublicAccess": false,
+            //     "networkAcls": {
+            //         "bypass": "AzureServices",
+            //         "virtualNetworkRules": [],
+            //         "ipRules": [],
+            //         "defaultAction": "Deny"
+            //     },
+            //     "supportsHttpsTrafficOnly": true,
+            //     "encryption": {
+            //         "services": {
+            //             "file": {
+            //                 "keyType": "Account",
+            //                 "enabled": true
+            //             },
+            //             "blob": {
+            //                 "keyType": "Account",
+            //                 "enabled": true
+            //             }
+            //         },
+            //         "keySource": "Microsoft.Storage"
+            //     },
+            //     "accessTier": "Cool"
+            // }
         },
         {
             "type": "Microsoft.Storage/storageAccounts/tableServices",
@@ -107,8 +107,8 @@
             },
             "kind": "functionapp",
             "properties": {
-                "perSiteScaling": false,
-                "maximumElasticWorkerCount": 1,
+                "perSiteScaling": true,
+                "maximumElasticWorkerCount": 100,
                 "isSpot": false,
                 "reserved": false,
                 "isXenon": false,
@@ -123,6 +123,10 @@
             "name": "[parameters('function_app_name')]",
             "location": "West Europe",
             "kind": "functionapp",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarm_name'))]",
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName'))]"
+            ],
             "properties": {
                 "enabled": true,
                 "hostNameSslStates": [
@@ -137,19 +141,39 @@
                         "hostType": "Repository"
                     }
                 ],
-                "serverFarmId": "[resourceId(resourceGroup().name, 'Microsoft.Web/serverFarms', parameters('serverfarm_name'))]",
-                "reserved": false,
-                "isXenon": false,
-                "hyperV": false,
-                "siteConfig": {},
-                "scmSiteAlsoStopped": false,
-                "clientAffinityEnabled": true,
-                "clientCertEnabled": false,
-                "hostNamesDisabled": false,
-                "containerSize": 1536,
-                "dailyMemoryTimeQuota": 0,
-                "httpsOnly": false,
-                "redundancyMode": "None"
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarm_name'))]",
+                "siteConfig": {
+                    "appSettings": [
+                        {
+                            "name": "AzureWebJobsStorage",
+                            "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', parameters('storageAccountName'), ';EndpointSuffix=', environment().suffixes.storage, ';AccountKey=',listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName')), '2019-06-01').keys[0].value)]"
+                        },
+                        {
+                            "name": "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING",
+                            "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', parameters('storageAccountName'), ';EndpointSuffix=', environment().suffixes.storage, ';AccountKey=',listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName')), '2019-06-01').keys[0].value)]"
+                        },
+                        {
+                            "name": "WEBSITE_CONTENTSHARE",
+                            "value": "[parameters('function_app_name')]"
+                        },
+                        {
+                            "name": "FUNCTIONS_EXTENSION_VERSION",
+                            "value": "~2"
+                        },
+                        {
+                            "name": "WEBSITE_NODE_DEFAULT_VERSION",
+                            "value": "~10"
+                        },
+                        {
+                            "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+                            "value": "[reference(resourceId('microsoft.insights/components', parameters('authorisation-generator_insights_name')), '2020-02-02-preview').InstrumentationKey]"
+                        },
+                        {
+                            "name": "FUNCTIONS_WORKER_RUNTIME",
+                            "value": "[parameters('serverfarm_name')]"
+                        }
+                    ]
+                }
             }
         },
         {
@@ -240,7 +264,7 @@
                 "reservedInstanceCount": 0
             }
         },
-                {
+        {
             "type": "Microsoft.Web/sites/functions",
             "apiVersion": "2018-11-01",
             "name": "[concat(parameters('function_app_name'), '/Authorization-Notification')]",
@@ -254,19 +278,6 @@
                 "config_href": "https://notification-services-sandbox.scm.azurewebsites.net/api/vfs/site/wwwroot/Authorization-Notification/function.json",
                 "href": "https://notification-services-sandbox.scm.azurewebsites.net/api/functions/Authorization-Notification",
                 "config": {}
-            }
-        },
-        {
-            "type": "Microsoft.Web/sites/hostNameBindings",
-            "apiVersion": "2018-11-01",
-            "name": "[concat(parameters('function_app_name'), '/', parameters('function_app_name'), '.azurewebsites.net')]",
-            "location": "West Europe",
-            "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('function_app_name'))]"
-            ],
-            "properties": {
-                "siteName": "to-remove",
-                "hostNameType": "Verified"
             }
         }
         // End cloud functions
