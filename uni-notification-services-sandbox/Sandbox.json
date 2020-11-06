@@ -17,6 +17,10 @@
         "serverfarm_name": {
             "defaultValue": "Notification-Services-Sandbox-Service-Plan",
             "type": "String"
+        },
+        "resource_group_name": {
+            "defaultValue": "t-ies-uni-rg",
+            "type": "String"
         }
     },
     "variables": {
@@ -119,24 +123,21 @@
             "name": "[parameters('function_app_name')]",
             "location": "West Europe",
             "kind": "functionapp",
-            "dependsOn": [
-                "[concat('Microsoft.Web/serverfarms/', parameters('serverfarm_name'))]"
-            ],
             "properties": {
                 "enabled": true,
                 "hostNameSslStates": [
                     {
-                        "name": "[concat(parameters('function_app_name'), '.azurewebsites.net')]",
+                        "name": "notification-services-sandbox.azurewebsites.net",
                         "sslState": "Disabled",
                         "hostType": "Standard"
                     },
                     {
-                        "name": "[concat(parameters('function_app_name'), '.scm.azurewebsites.net')]",
+                        "name": "notification-services-sandbox.scm.azurewebsites.net",
                         "sslState": "Disabled",
                         "hostType": "Repository"
                     }
                 ],
-                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarm_name'))]",
+                "serverFarmId": "[resourceId(resourceGroup().name, 'Microsoft.Web/serverFarms', parameters('serverfarm_name'))]",
                 "reserved": false,
                 "isXenon": false,
                 "hyperV": false,
@@ -161,74 +162,98 @@
             ],
             "properties": {
                 "numberOfWorkers": -1,
-                "defaultDocuments": [
-                    "Default.htm",
-                    "Default.html",
-                    "Default.asp",
-                    "index.htm",
-                    "index.html",
-                    "iisstart.htm",
-                    "default.aspx",
-                    "index.php"
-                ],
-                "netFrameworkVersion": "v4.0",
-                "phpVersion": "5.6",
-                "requestTracingEnabled": false,
-                "remoteDebuggingEnabled": false,
-                "httpLoggingEnabled": false,
-                "logsDirectorySizeLimit": 35,
-                "detailedErrorLoggingEnabled": false,
-                "publishingUsername": "$to-remove",
+                // "defaultDocuments": [
+                //     "Default.htm",
+                //     "Default.html",
+                //     "Default.asp",
+                //     "index.htm",
+                //     "index.html",
+                //     "iisstart.htm",
+                //     "default.aspx",
+                //     "index.php"
+                // ],
+                // "netFrameworkVersion": "v4.0",
+                // "phpVersion": "5.6",
+                // "requestTracingEnabled": false,
+                // "remoteDebuggingEnabled": false,
+                // "remoteDebuggingVersion": "VS2019",
+                // "httpLoggingEnabled": false,
+                // "logsDirectorySizeLimit": 35,
+                // "detailedErrorLoggingEnabled": false,
+                "publishingUsername": "$Notification-Services-Sandbox",
                 "azureStorageAccounts": {},
                 "scmType": "None",
                 "use32BitWorkerProcess": true,
                 "webSocketsEnabled": false,
                 "alwaysOn": false,
                 "managedPipelineMode": "Integrated",
-                "virtualApplications": [
-                    {
-                        "virtualPath": "/",
-                        "physicalPath": "site\\wwwroot",
-                        "preloadEnabled": false
-                    }
-                ],
-                "loadBalancing": "LeastRequests",
-                "experiments": {
-                    "rampUpRules": []
-                },
-                "autoHealEnabled": false,
-                "cors": {
-                    "allowedOrigins": [
-                        "https://functions.azure.com",
-                        "https://functions-staging.azure.com",
-                        "https://functions-next.azure.com"
-                    ],
-                    "supportCredentials": false
-                },
+                // "virtualApplications": [
+                //     {
+                //         "virtualPath": "/",
+                //         "physicalPath": "site\\wwwroot",
+                //         "preloadEnabled": false
+                //     }
+                // ],
+                // "loadBalancing": "LeastRequests",
+                // "experiments": {
+                //     "rampUpRules": []
+                // },
+                // "autoHealEnabled": false,
+                // "cors": {
+                //     "allowedOrigins": [
+                //         "https://functions.azure.com",
+                //         "https://functions-staging.azure.com",
+                //         "https://functions-next.azure.com"
+                //     ],
+                //     "supportCredentials": false
+                // },
                 "localMySqlEnabled": false,
                 "ipSecurityRestrictions": [
                     {
-                        "ipAddress": "Any",
-                        "action": "Allow",
-                        "priority": 1,
-                        "name": "Allow all",
-                        "description": "Allow all access"
-                    }
-                ],
-                "scmIpSecurityRestrictions": [
+                        "ipAddress": "0.0.0.0/0",
+                        "action": "Deny",
+                        "tag": "Default",
+                        "priority": 50,
+                        "name": "Deny All"
+                    },
                     {
                         "ipAddress": "Any",
-                        "action": "Allow",
-                        "priority": 1,
-                        "name": "Allow all",
-                        "description": "Allow all access"
+                        "action": "Deny",
+                        "priority": 2147483647,
+                        "name": "Deny all",
+                        "description": "Deny all access"
                     }
                 ],
-                "scmIpSecurityRestrictionsUseMain": false,
-                "http20Enabled": false,
-                "minTlsVersion": "1.2",
-                "ftpsState": "AllAllowed",
+                // "scmIpSecurityRestrictions": [
+                //     {
+                //         "ipAddress": "Any",
+                //         "action": "Allow",
+                //         "priority": 1,
+                //         "name": "Allow all",
+                //         "description": "Allow all access"
+                //     }
+                // ],
+                // "scmIpSecurityRestrictionsUseMain": false,
+                // "http20Enabled": false,
+                // "minTlsVersion": "1.2",
+                // "ftpsState": "AllAllowed",
                 "reservedInstanceCount": 0
+            }
+        },
+                {
+            "type": "Microsoft.Web/sites/functions",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('function_app_name'), '/Authorization-Notification')]",
+            "location": "West Europe",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('function_app_name'))]"
+            ],
+            "properties": {
+                "script_root_path_href": "https://notification-services-sandbox.scm.azurewebsites.net/api/vfs/site/wwwroot/Authorization-Notification/",
+                "script_href": "https://notification-services-sandbox.scm.azurewebsites.net/api/vfs/site/wwwroot/Authorization-Notification/index.js",
+                "config_href": "https://notification-services-sandbox.scm.azurewebsites.net/api/vfs/site/wwwroot/Authorization-Notification/function.json",
+                "href": "https://notification-services-sandbox.scm.azurewebsites.net/api/functions/Authorization-Notification",
+                "config": {}
             }
         },
         {
