@@ -48,46 +48,36 @@
             "type": "microsoft.insights/components",
             "apiVersion": "2020-02-02-preview",
             "name": "[parameters('authorisation-generator_insights_name')]",
-            "location": "westeurope",
+            "location": "[resourceGroup().location]",
             "kind": "web",
             "properties": {
                 "Application_Type": "web",
-                "Request_Source": "rest",
-                "RetentionInDays": 30,
-                "publicNetworkAccessForIngestion": "Enabled",
-                "publicNetworkAccessForQuery": "Enabled"
+                "RetentionInDays": 30
             }
         },
         // Begin cloud functions
         {
             "type": "Microsoft.Web/serverfarms",
-            "apiVersion": "2020-06-01",
+            "apiVersion": "2018-02-01",
             "name": "[parameters('serverfarm_name')]",
-            "location": "West Europe",
+            "location": "[resourceGroup().location]",
             "sku": {
-                "name": "Y1",
-                "tier": "Dynamic",
-                "size": "Y1",
-                "family": "Y",
-                "capacity": 0
+                "name": "S1",
+                "tier": "Standard",
+                "size": "S1",
+                "family": "S",
+                "capacity": 1
             },
-            "kind": "functionapp",
             "properties": {
                 "perSiteScaling": true,
-                "maximumElasticWorkerCount": 100,
-                "isSpot": false,
-                "reserved": false,
-                "isXenon": false,
-                "hyperV": false,
-                "targetWorkerCount": 0,
-                "targetWorkerSizeId": 0
+                "maximumElasticWorkerCount": 100
             }
         },
         {
             "type": "Microsoft.Web/sites",
             "apiVersion": "2020-06-01",
             "name": "[parameters('function_app_name')]",
-            "location": "West Europe",
+            "location": "[resourceGroup().location]",
             "kind": "functionapp",
             "dependsOn": [
                 "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarm_name'))]",
@@ -113,7 +103,7 @@
                         {
                             "name": "AzureWebJobsStorage",
                             "value": "DefaultEndpointsProtocol=https;AccountName=nssandbox;AccountKey=pzbR1BdPXc98lDlI150soOc7gmACoBanfiQTbkH3YnNjxFA+W8FsKDkgEE45daK3XOS70Hl0QTaK1k2oLQvz7A==;EndpointSuffix=core.windows.net"
-                        },                        
+                        },
                         {
                             "name": "AzureWebJobsDashboard",
                             "value": "DefaultEndpointsProtocol=https;AccountName=nssandbox;AccountKey=pzbR1BdPXc98lDlI150soOc7gmACoBanfiQTbkH3YnNjxFA+W8FsKDkgEE45daK3XOS70Hl0QTaK1k2oLQvz7A==;EndpointSuffix=core.windows.net"
@@ -150,7 +140,7 @@
             "type": "Microsoft.Web/sites/config",
             "apiVersion": "2018-11-01",
             "name": "[concat(parameters('function_app_name'), '/web')]",
-            "location": "West Europe",
+            "location": "[resourceGroup().location]",
             "dependsOn": [
                 "[resourceId('Microsoft.Web/sites', parameters('function_app_name'))]"
             ],
@@ -238,7 +228,7 @@
             "type": "Microsoft.Web/sites/functions",
             "apiVersion": "2018-11-01",
             "name": "[concat(parameters('function_app_name'), '/Authorization-Notification')]",
-            "location": "West Europe",
+            "location": "[resourceGroup().location]",
             "dependsOn": [
                 "[resourceId('Microsoft.Web/sites', parameters('function_app_name'))]"
             ],
@@ -254,7 +244,7 @@
             "type": "Microsoft.Web/sites/hostNameBindings",
             "apiVersion": "2018-11-01",
             "name": "[concat(parameters('function_app_name'), '/', parameters('function_app_name'), '.azurewebsites.net')]",
-            "location": "West Europe",
+            "location": "[resourceGroup().location]",
             "dependsOn": [
                 "[resourceId('Microsoft.Web/sites', parameters('function_app_name'))]"
             ],
