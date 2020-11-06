@@ -290,7 +290,7 @@
                 "[resourceId('Microsoft.Web/sites', parameters('function_app_name'))]"
             ],
             "properties": {
-                "siteName": "to-remove",
+                "siteName": "[parameters('function_app_name')]",
                 "hostNameType": "Verified"
             }
         }
