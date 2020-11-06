@@ -102,7 +102,7 @@
                         },
                         {
                             "name": "WEBSITE_CONTENTSHARE",
-                            "value": "[parameters('function_app_name')]"
+                            "value": "[toLower(parameters('function_app_name'))]"
                         }
                     //     {
                     //         "name": "FUNCTIONS_EXTENSION_VERSION",
