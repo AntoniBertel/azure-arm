@@ -13,12 +13,12 @@
     "resources": [
         {
             "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2019-10-01",
+            "apiVersion": "2020-06-01",
             "name": "storageAccount",
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "relativePath": "./StorageAccount.json"
+                    "relativePath": "uni-notification-services-sandbox/StorageAccount.json"
                 }
             }
         },
@@ -38,12 +38,12 @@
         },
         {
             "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2019-10-01",
+            "apiVersion": "2020-06-01",
             "name": "functions",
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "relativePath": "./Functions.json"
+                    "relativePath": "uni-notification-services-sandbox/Functions.json"
                 }
             }
         }
