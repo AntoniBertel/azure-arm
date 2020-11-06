@@ -15,7 +15,7 @@
             "type": "String"
         },
         "serverfarm_name": {
-            "defaultValue": "Sandbox-Servicefarm",
+            "defaultValue": "Notification-Services-Sandbox-Service-Plan",
             "type": "String"
         }
     },
