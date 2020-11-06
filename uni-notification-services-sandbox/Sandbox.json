@@ -37,32 +37,32 @@
                 "name": "Standard_LRS",
                 "tier": "Standard"
             },
-            "kind": "StorageV2"
-            // "properties": {
-            //     "minimumTlsVersion": "TLS1_2",
-            //     "allowBlobPublicAccess": false,
-            //     "networkAcls": {
-            //         "bypass": "AzureServices",
-            //         "virtualNetworkRules": [],
-            //         "ipRules": [],
-            //         "defaultAction": "Deny"
-            //     },
-            //     "supportsHttpsTrafficOnly": true,
-            //     "encryption": {
-            //         "services": {
-            //             "file": {
-            //                 "keyType": "Account",
-            //                 "enabled": true
-            //             },
-            //             "blob": {
-            //                 "keyType": "Account",
-            //                 "enabled": true
-            //             }
-            //         },
-            //         "keySource": "Microsoft.Storage"
-            //     },
-            //     "accessTier": "Cool"
-            // }
+            "kind": "StorageV2",
+            "properties": {
+                "minimumTlsVersion": "TLS1_2",
+                "allowBlobPublicAccess": false,
+                "networkAcls": {
+                    "bypass": "AzureServices",
+                    "virtualNetworkRules": [],
+                    "ipRules": [],
+                    "defaultAction": "Deny"
+                },
+                "supportsHttpsTrafficOnly": true,
+                "encryption": {
+                    "services": {
+                        "file": {
+                            "keyType": "Account",
+                            "enabled": true
+                        },
+                        "blob": {
+                            "keyType": "Account",
+                            "enabled": true
+                        }
+                    },
+                    "keySource": "Microsoft.Storage"
+                },
+                "accessTier": "Cool"
+            }
         },
         {
             "type": "Microsoft.Storage/storageAccounts/tableServices",
@@ -186,24 +186,24 @@
             ],
             "properties": {
                 "numberOfWorkers": -1,
-                // "defaultDocuments": [
-                //     "Default.htm",
-                //     "Default.html",
-                //     "Default.asp",
-                //     "index.htm",
-                //     "index.html",
-                //     "iisstart.htm",
-                //     "default.aspx",
-                //     "index.php"
-                // ],
-                // "netFrameworkVersion": "v4.0",
-                // "phpVersion": "5.6",
-                // "requestTracingEnabled": false,
-                // "remoteDebuggingEnabled": false,
-                // "remoteDebuggingVersion": "VS2019",
-                // "httpLoggingEnabled": false,
-                // "logsDirectorySizeLimit": 35,
-                // "detailedErrorLoggingEnabled": false,
+                "defaultDocuments": [
+                    "Default.htm",
+                    "Default.html",
+                    "Default.asp",
+                    "index.htm",
+                    "index.html",
+                    "iisstart.htm",
+                    "default.aspx",
+                    "index.php"
+                ],
+                "netFrameworkVersion": "v4.0",
+                "phpVersion": "5.6",
+                "requestTracingEnabled": false,
+                "remoteDebuggingEnabled": false,
+                "remoteDebuggingVersion": "VS2019",
+                "httpLoggingEnabled": false,
+                "logsDirectorySizeLimit": 35,
+                "detailedErrorLoggingEnabled": false,
                 "publishingUsername": "$Notification-Services-Sandbox",
                 "azureStorageAccounts": {},
                 "scmType": "None",
@@ -211,26 +211,26 @@
                 "webSocketsEnabled": false,
                 "alwaysOn": false,
                 "managedPipelineMode": "Integrated",
-                // "virtualApplications": [
-                //     {
-                //         "virtualPath": "/",
-                //         "physicalPath": "site\\wwwroot",
-                //         "preloadEnabled": false
-                //     }
-                // ],
-                // "loadBalancing": "LeastRequests",
-                // "experiments": {
-                //     "rampUpRules": []
-                // },
-                // "autoHealEnabled": false,
-                // "cors": {
-                //     "allowedOrigins": [
-                //         "https://functions.azure.com",
-                //         "https://functions-staging.azure.com",
-                //         "https://functions-next.azure.com"
-                //     ],
-                //     "supportCredentials": false
-                // },
+                "virtualApplications": [
+                    {
+                        "virtualPath": "/",
+                        "physicalPath": "site\\wwwroot",
+                        "preloadEnabled": false
+                    }
+                ],
+                "loadBalancing": "LeastRequests",
+                "experiments": {
+                    "rampUpRules": []
+                },
+                "autoHealEnabled": false,
+                "cors": {
+                    "allowedOrigins": [
+                        "https://functions.azure.com",
+                        "https://functions-staging.azure.com",
+                        "https://functions-next.azure.com"
+                    ],
+                    "supportCredentials": false
+                },
                 "localMySqlEnabled": false,
                 "ipSecurityRestrictions": [
                     {
@@ -248,19 +248,19 @@
                         "description": "Deny all access"
                     }
                 ],
-                // "scmIpSecurityRestrictions": [
-                //     {
-                //         "ipAddress": "Any",
-                //         "action": "Allow",
-                //         "priority": 1,
-                //         "name": "Allow all",
-                //         "description": "Allow all access"
-                //     }
-                // ],
-                // "scmIpSecurityRestrictionsUseMain": false,
-                // "http20Enabled": false,
-                // "minTlsVersion": "1.2",
-                // "ftpsState": "AllAllowed",
+                "scmIpSecurityRestrictions": [
+                    {
+                        "ipAddress": "Any",
+                        "action": "Allow",
+                        "priority": 1,
+                        "name": "Allow all",
+                        "description": "Allow all access"
+                    }
+                ],
+                "scmIpSecurityRestrictionsUseMain": false,
+                "http20Enabled": false,
+                "minTlsVersion": "1.2",
+                "ftpsState": "AllAllowed",
                 "reservedInstanceCount": 0
             }
         },
