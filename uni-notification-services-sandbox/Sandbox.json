@@ -183,7 +183,7 @@
         {
             "type": "Microsoft.Web/sites/config",
             "apiVersion": "2018-11-01",
-            "name": "[parameters('function_app_name')]",
+            "name": "[concat(parameters('function_app_name'), '/web')]",
             "location": "West Europe",
             "dependsOn": [
                 "[resourceId('Microsoft.Web/sites', parameters('function_app_name'))]"
