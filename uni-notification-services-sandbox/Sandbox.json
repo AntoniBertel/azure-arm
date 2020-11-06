@@ -18,7 +18,8 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "relativePath": "/uni-notification-services-sandbox/StorageAccount.json"
+                    "uri": "https://raw.githubusercontent.com/AntoniBertel/azure-arm/master/uni-notification-services-sandbox/StorageAccount.json",
+                    "contentVersion": "1.0.0.0"
                 }
             }
         },
@@ -43,7 +44,8 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "relativePath": "/Functions.json"
+                    "uri": "https://raw.githubusercontent.com/AntoniBertel/azure-arm/master/uni-notification-services-sandbox/Functions.json",
+                    "contentVersion": "1.0.0.0"
                 }
             }
         }
