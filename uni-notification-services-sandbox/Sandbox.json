@@ -271,7 +271,7 @@
         {
             "type": "Microsoft.Web/sites/functions",
             "apiVersion": "2018-11-01",
-            "name": "[parameters('function_name')]",
+            "name": "[concat(parameters('function_app_name'), '/Authorization-Notification')]",
             "location": "West Europe",
             "dependsOn": [
                 "[resourceId('Microsoft.Web/sites', parameters('function_app_name'))]"
