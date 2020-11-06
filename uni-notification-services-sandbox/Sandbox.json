@@ -36,18 +36,18 @@
                 "publicNetworkAccessForIngestion": "Enabled",
                 "publicNetworkAccessForQuery": "Enabled"
             }
-        },
-        {
-            "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2020-06-01",
-            "name": "functions",
-            "properties": {
-                "mode": "Incremental",
-                "templateLink": {
-                    "uri": "https://raw.githubusercontent.com/AntoniBertel/azure-arm/master/uni-notification-services-sandbox/Functions.json",
-                    "contentVersion": "1.0.0.0"
-                }
-            }
         }
+        // {
+        //     "type": "Microsoft.Resources/deployments",
+        //     "apiVersion": "2020-06-01",
+        //     "name": "functions",
+        //     "properties": {
+        //         "mode": "Incremental",
+        //         "templateLink": {
+        //             "uri": "https://raw.githubusercontent.com/AntoniBertel/azure-arm/master/uni-notification-services-sandbox/Functions.json",
+        //             "contentVersion": "1.0.0.0"
+        //         }
+        //     }
+        // }
     ]
 }

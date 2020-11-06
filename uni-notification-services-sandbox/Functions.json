@@ -6,7 +6,7 @@
             "defaultValue": "Notification-Services-Sandbox",
             "type": "String"
         },
-                "serverfarm_name": {
+        "serverfarm_name": {
             "defaultValue": "Sandbox-Servicefarm",
             "type": "String"
         }
