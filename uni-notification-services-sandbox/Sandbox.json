@@ -102,15 +102,15 @@
                     "appSettings": [
                         {
                             "name": "AzureWebJobsStorage",
-                            "value": "DefaultEndpointsProtocol=https;AccountName=nssandbox;AccountKey=pzbR1BdPXc98lDlI150soOc7gmACoBanfiQTbkH3YnNjxFA+W8FsKDkgEE45daK3XOS70Hl0QTaK1k2oLQvz7A==;EndpointSuffix=core.windows.net"
+                            "value": "[Concat('DefaultEndpointsProtocol=https;AccountName=',parameters('storageAccountName'),';AccountKey=',listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName')), providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).keys[0].value)]"
                         },
                         {
                             "name": "AzureWebJobsDashboard",
-                            "value": "DefaultEndpointsProtocol=https;AccountName=nssandbox;AccountKey=pzbR1BdPXc98lDlI150soOc7gmACoBanfiQTbkH3YnNjxFA+W8FsKDkgEE45daK3XOS70Hl0QTaK1k2oLQvz7A==;EndpointSuffix=core.windows.net"
+                            "value": "[Concat('DefaultEndpointsProtocol=https;AccountName=',parameters('storageAccountName'),';AccountKey=',listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName')), providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).keys[0].value)]"
                         },
                         {
                             "name": "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING",
-                            "value": "DefaultEndpointsProtocol=https;AccountName=nssandbox;AccountKey=pzbR1BdPXc98lDlI150soOc7gmACoBanfiQTbkH3YnNjxFA+W8FsKDkgEE45daK3XOS70Hl0QTaK1k2oLQvz7A==;EndpointSuffix=core.windows.net"
+                            "value": "[Concat('DefaultEndpointsProtocol=https;AccountName=',parameters('storageAccountName'),';AccountKey=',listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName')), providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).keys[0].value)]"
                         },
                         {
                             "name": "WEBSITE_CONTENTSHARE",
