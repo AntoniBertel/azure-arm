@@ -14,6 +14,10 @@
             "defaultValue": "Notification-Services-Sandbox",
             "type": "String"
         },
+        "function_name": {
+            "defaultValue": "Authorization-Notification",
+            "type": "String"
+        },
         "serverfarm_name": {
             "defaultValue": "Notification-Services-Sandbox-Service-Plan",
             "type": "String"
@@ -129,18 +133,18 @@
             ],
             "properties": {
                 "enabled": true,
-                "hostNameSslStates": [
-                    {
-                        "name": "notification-services-sandbox.azurewebsites.net",
-                        "sslState": "Disabled",
-                        "hostType": "Standard"
-                    },
-                    {
-                        "name": "notification-services-sandbox.scm.azurewebsites.net",
-                        "sslState": "Disabled",
-                        "hostType": "Repository"
-                    }
-                ],
+                // "hostNameSslStates": [
+                //     {
+                //         "name": "notification-services-sandbox.azurewebsites.net",
+                //         "sslState": "Disabled",
+                //         "hostType": "Standard"
+                //     },
+                //     {
+                //         "name": "notification-services-sandbox.scm.azurewebsites.net",
+                //         "sslState": "Disabled",
+                //         "hostType": "Repository"
+                //     }
+                // ],
                 "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarm_name'))]",
                 "siteConfig": {
                     "appSettings": [
@@ -164,10 +168,10 @@
                             "name": "WEBSITE_NODE_DEFAULT_VERSION",
                             "value": "~10"
                         }
-                    //     {
-                    //         "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
-                    //         "value": "[reference(resourceId('microsoft.insights/components', parameters('authorisation-generator_insights_name')), '2020-02-02-preview').InstrumentationKey]"
-                    //     },
+                        //     {
+                        //         "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+                        //         "value": "[reference(resourceId('microsoft.insights/components', parameters('authorisation-generator_insights_name')), '2020-02-02-preview').InstrumentationKey]"
+                        //     },
                         // {
                         //     "name": "FUNCTIONS_WORKER_RUNTIME",
                         //     "value": "[parameters('serverfarm_name')]"
@@ -179,23 +183,23 @@
         {
             "type": "Microsoft.Web/sites/config",
             "apiVersion": "2018-11-01",
-            "name": "[concat(parameters('function_app_name'), '/web')]",
+            "name": "[parameters('function_app_name')]",
             "location": "West Europe",
             "dependsOn": [
                 "[resourceId('Microsoft.Web/sites', parameters('function_app_name'))]"
             ],
             "properties": {
                 "numberOfWorkers": -1,
-                "defaultDocuments": [
-                    "Default.htm",
-                    "Default.html",
-                    "Default.asp",
-                    "index.htm",
-                    "index.html",
-                    "iisstart.htm",
-                    "default.aspx",
-                    "index.php"
-                ],
+                // "defaultDocuments": [
+                //     "Default.htm",
+                //     "Default.html",
+                //     "Default.asp",
+                //     "index.htm",
+                //     "index.html",
+                //     "iisstart.htm",
+                //     "default.aspx",
+                //     "index.php"
+                // ],
                 "netFrameworkVersion": "v4.0",
                 "phpVersion": "5.6",
                 "requestTracingEnabled": false,
@@ -211,26 +215,26 @@
                 "webSocketsEnabled": false,
                 "alwaysOn": false,
                 "managedPipelineMode": "Integrated",
-                "virtualApplications": [
-                    {
-                        "virtualPath": "/",
-                        "physicalPath": "site\\wwwroot",
-                        "preloadEnabled": false
-                    }
-                ],
+                // "virtualApplications": [
+                //     {
+                //         "virtualPath": "/",
+                //         "physicalPath": "site\\wwwroot",
+                //         "preloadEnabled": false
+                //     }
+                // ],
                 "loadBalancing": "LeastRequests",
                 "experiments": {
                     "rampUpRules": []
                 },
                 "autoHealEnabled": false,
-                "cors": {
-                    "allowedOrigins": [
-                        "https://functions.azure.com",
-                        "https://functions-staging.azure.com",
-                        "https://functions-next.azure.com"
-                    ],
-                    "supportCredentials": false
-                },
+                // "cors": {
+                //     "allowedOrigins": [
+                //         "https://functions.azure.com",
+                //         "https://functions-staging.azure.com",
+                //         "https://functions-next.azure.com"
+                //     ],
+                //     "supportCredentials": false
+                // },
                 "localMySqlEnabled": false,
                 "ipSecurityRestrictions": [
                     {
@@ -267,7 +271,7 @@
         {
             "type": "Microsoft.Web/sites/functions",
             "apiVersion": "2018-11-01",
-            "name": "[concat(parameters('function_app_name'), '/Authorization-Notification')]",
+            "name": "[parameters('function_name')]",
             "location": "West Europe",
             "dependsOn": [
                 "[resourceId('Microsoft.Web/sites', parameters('function_app_name'))]"
@@ -283,7 +287,7 @@
         {
             "type": "Microsoft.Web/sites/hostNameBindings",
             "apiVersion": "2018-11-01",
-            "name": "[concat(parameters('function_app_name'), '/', parameters('function_app_name'), '.azurewebsites.net')]",
+            "name": "[parameters('function_app_name')]",
             "location": "West Europe",
             "dependsOn": [
                 "[resourceId('Microsoft.Web/sites', parameters('function_app_name'))]"
