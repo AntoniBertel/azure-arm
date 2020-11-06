@@ -145,7 +145,7 @@
                 "[resourceId('Microsoft.Web/sites', parameters('function_app_name'))]"
             ],
             "properties": {
-                "numberOfWorkers": -1,
+                // "numberOfWorkers": -1,
                 // "defaultDocuments": [
                 //     "Default.htm",
                 //     "Default.html",
