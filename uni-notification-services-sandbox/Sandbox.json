@@ -21,10 +21,6 @@
         "serverfarm_name": {
             "defaultValue": "Notification-Services-Sandbox-Service-Plan",
             "type": "String"
-        },
-        "resource_group_name": {
-            "defaultValue": "t-ies-uni-rg",
-            "type": "String"
         }
     },
     "variables": {
@@ -80,8 +76,8 @@
             "location": "[resourceGroup().location]",
             "kind": "functionapp",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarm_name'))]",
-                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName'))]"
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName'))]",
+                "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarm_name'))]"
             ],
             "properties": {
                 "enabled": true,
@@ -103,23 +99,23 @@
                         {
                             "name": "WEBSITE_CONTENTSHARE",
                             "value": "[toLower(parameters('function_app_name'))]"
+                        },
+                        {
+                            "name": "FUNCTIONS_EXTENSION_VERSION",
+                            "value": "~2"
+                        },
+                        {
+                            "name": "WEBSITE_NODE_DEFAULT_VERSION",
+                            "value": "~12"
+                        },
+                            {
+                                "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+                                "value": "[reference(resourceId('microsoft.insights/components', parameters('authorisation-generator_insights_name')), '2020-02-02-preview').InstrumentationKey]"
+                            },
+                        {
+                            "name": "FUNCTIONS_WORKER_RUNTIME",
+                            "value": "node"
                         }
-                    //     {
-                    //         "name": "FUNCTIONS_EXTENSION_VERSION",
-                    //         "value": "~2"
-                    //     },
-                    //     {
-                    //         "name": "WEBSITE_NODE_DEFAULT_VERSION",
-                    //         "value": "~10"
-                    //     },
-                    //     //     {
-                    //     //         "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
-                    //     //         "value": "[reference(resourceId('microsoft.insights/components', parameters('authorisation-generator_insights_name')), '2020-02-02-preview').InstrumentationKey]"
-                    //     //     },
-                    //     {
-                    //         "name": "FUNCTIONS_WORKER_RUNTIME",
-                    //         "value": "node"
-                    //     }
                     ]
                 }
             }
@@ -133,57 +129,57 @@
                 "[resourceId('Microsoft.Web/sites', parameters('function_app_name'))]"
             ],
             "properties": {
-                "netFrameworkVersion": "v4.0",
-                "phpVersion": "5.6",
-                "requestTracingEnabled": false,
-                "remoteDebuggingEnabled": false,
-                "remoteDebuggingVersion": "VS2019",
-                "httpLoggingEnabled": false,
-                "logsDirectorySizeLimit": 35,
-                "detailedErrorLoggingEnabled": false,
-                "publishingUsername": "$Notification-Services-Sandbox",
-                "azureStorageAccounts": {},
-                "scmType": "None",
-                "use32BitWorkerProcess": true,
-                "webSocketsEnabled": false,
-                "alwaysOn": false,
-                "managedPipelineMode": "Integrated",
-                "loadBalancing": "LeastRequests",
-                "experiments": {
-                    "rampUpRules": []
-                },
-                "autoHealEnabled": false,
-                "localMySqlEnabled": false,
-                // "ipSecurityRestrictions": [
-                //     {
-                //         "ipAddress": "0.0.0.0/0",
-                //         "action": "Deny",
-                //         "tag": "Default",
-                //         "priority": 50,
-                //         "name": "Deny All"
-                //     },
-                //     {
-                //         "ipAddress": "Any",
-                //         "action": "Deny",
-                //         "priority": 2147483647,
-                //         "name": "Deny all",
-                //         "description": "Deny all access"
-                //     }
-                // ],
+                // "netFrameworkVersion": "v4.0",
+                // "phpVersion": "5.6",
+                // "requestTracingEnabled": false,
+                // "remoteDebuggingEnabled": false,
+                // "remoteDebuggingVersion": "VS2019",
+                // "httpLoggingEnabled": false,
+                // "logsDirectorySizeLimit": 35,
+                // "detailedErrorLoggingEnabled": false,
+                // "publishingUsername": "$Notification-Services-Sandbox",
+                // "azureStorageAccounts": {},
+                // "scmType": "None",
+                // "use32BitWorkerProcess": true,
+                // "webSocketsEnabled": false,
+                // "alwaysOn": false,
+                // "managedPipelineMode": "Integrated",
+                // "loadBalancing": "LeastRequests",
+                // "experiments": {
+                //     "rampUpRules": []
+                // },
+                // "autoHealEnabled": false,
+                // "localMySqlEnabled": false,
+                "ipSecurityRestrictions": [
+                    {
+                        "ipAddress": "0.0.0.0/0",
+                        "action": "Deny",
+                        "tag": "Default",
+                        "priority": 50,
+                        "name": "Deny All"
+                    },
+                    {
+                        "ipAddress": "Any",
+                        "action": "Deny",
+                        "priority": 2147483647,
+                        "name": "Deny all",
+                        "description": "Deny all access"
+                    }
+                ],
                 "scmIpSecurityRestrictions": [
                     {
                         "ipAddress": "Any",
-                        "action": "Allow",
+                        "action": "Deny",
                         "priority": 1,
-                        "name": "Allow all",
-                        "description": "Allow all access"
+                        "name": "Deny all",
+                        "description": "Deny all access"
                     }
-                ],
-                "scmIpSecurityRestrictionsUseMain": false,
-                "http20Enabled": false,
-                "minTlsVersion": "1.2",
-                "ftpsState": "AllAllowed",
-                "reservedInstanceCount": 0
+                ]
+                // "scmIpSecurityRestrictionsUseMain": false,
+                // "http20Enabled": false,
+                // "minTlsVersion": "1.2",
+                // "ftpsState": "AllAllowed",
+                // "reservedInstanceCount": 0
             }
         },
         // {
