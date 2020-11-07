@@ -14,8 +14,8 @@
             "defaultValue": "Notification-Services-Sandbox",
             "type": "String"
         },
-        "function_name": {
-            "defaultValue": "Authorization-Notification",
+        "API_manager_name": {
+            "defaultValue": "Notification-Services-Sandbox",
             "type": "String"
         },
         "serverfarm_name": {
@@ -157,22 +157,6 @@
                 ]
             }
         },
-        // {
-        //     "type": "Microsoft.Web/sites/functions",
-        //     "apiVersion": "2018-11-01",
-        //     "name": "[concat(parameters('function_app_name'), '/Authorization-Notification')]",
-        //     "location": "[resourceGroup().location]",
-        //     "dependsOn": [
-        //         "[resourceId('Microsoft.Web/sites', parameters('function_app_name'))]"
-        //     ],
-        //     "properties": {
-        //         "script_root_path_href": "https://notification-services-sandbox.scm.azurewebsites.net/api/vfs/site/wwwroot/Authorization-Notification/",
-        //         "script_href": "https://notification-services-sandbox.scm.azurewebsites.net/api/vfs/site/wwwroot/Authorization-Notification/index.js",
-        //         "config_href": "https://notification-services-sandbox.scm.azurewebsites.net/api/vfs/site/wwwroot/Authorization-Notification/function.json",
-        //         "href": "https://notification-services-sandbox.scm.azurewebsites.net/api/functions/Authorization-Notification",
-        //         "config": {}
-        //     }
-        // },
         {
             "type": "Microsoft.Web/sites/hostNameBindings",
             "apiVersion": "2018-11-01",
@@ -185,7 +169,34 @@
                 "siteName": "[parameters('function_app_name')]",
                 "hostNameType": "Verified"
             }
-        }
+        },
         // End cloud functions
+        // API Manager
+        {
+            "type": "Microsoft.ApiManagement/service",
+            "apiVersion": "2019-12-01",
+            "name": "[parameters('API_manager_name')]",
+            "location": "[resourceGroup().location]",
+            "sku": {
+                "name": "Developer",
+                "capacity": 1
+            },
+            "properties": {
+                "publisherEmail": "abert@nets.eu",
+                "publisherName": "Nets",
+                "notificationSenderEmail": "apimgmt-noreply@mail.windowsazure.com",
+                "hostnameConfigurations": [
+                    {
+                        "type": "Proxy",
+                        "hostName": "notification-services-sandbox.azure-api.net",
+                        "negotiateClientCertificate": false,
+                        "defaultSslBinding": true
+                    }
+                ],
+                "virtualNetworkType": "None",
+                "disableGateway": false,
+                "apiVersionConstraint": {}
+            }
+        }
     ]
 }
