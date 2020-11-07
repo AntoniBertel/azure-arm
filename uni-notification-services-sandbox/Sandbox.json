@@ -79,6 +79,8 @@
                 "enabled": true,
                 "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarm_name'))]",
                 "siteConfig": {
+                    "ftpsState": "Disabled",
+                    "httpsOnly": true,
                     "appSettings": [
                         {
                             "name": "AzureWebJobsStorage",
@@ -98,7 +100,7 @@
                         },
                         {
                             "name": "FUNCTIONS_EXTENSION_VERSION",
-                            "value": "~2"
+                            "value": "~3"
                         },
                         {
                             "name": "WEBSITE_NODE_DEFAULT_VERSION",
