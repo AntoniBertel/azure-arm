@@ -129,27 +129,6 @@
                 "[resourceId('Microsoft.Web/sites', parameters('function_app_name'))]"
             ],
             "properties": {
-                // "netFrameworkVersion": "v4.0",
-                // "phpVersion": "5.6",
-                // "requestTracingEnabled": false,
-                // "remoteDebuggingEnabled": false,
-                // "remoteDebuggingVersion": "VS2019",
-                // "httpLoggingEnabled": false,
-                // "logsDirectorySizeLimit": 35,
-                // "detailedErrorLoggingEnabled": false,
-                // "publishingUsername": "$Notification-Services-Sandbox",
-                // "azureStorageAccounts": {},
-                // "scmType": "None",
-                // "use32BitWorkerProcess": true,
-                // "webSocketsEnabled": false,
-                // "alwaysOn": false,
-                // "managedPipelineMode": "Integrated",
-                // "loadBalancing": "LeastRequests",
-                // "experiments": {
-                //     "rampUpRules": []
-                // },
-                // "autoHealEnabled": false,
-                // "localMySqlEnabled": false,
                 "ipSecurityRestrictions": [
                     {
                         "ipAddress": "0.0.0.0/0",
@@ -175,29 +154,24 @@
                         "description": "Deny all access"
                     }
                 ]
-                // "scmIpSecurityRestrictionsUseMain": false,
-                // "http20Enabled": false,
-                // "minTlsVersion": "1.2",
-                // "ftpsState": "AllAllowed",
-                // "reservedInstanceCount": 0
             }
         },
-        // {
-        //     "type": "Microsoft.Web/sites/functions",
-        //     "apiVersion": "2018-11-01",
-        //     "name": "[concat(parameters('function_app_name'), '/Authorization-Notification')]",
-        //     "location": "[resourceGroup().location]",
-        //     "dependsOn": [
-        //         "[resourceId('Microsoft.Web/sites', parameters('function_app_name'))]"
-        //     ],
-        //     "properties": {
-        //         "script_root_path_href": "https://notification-services-sandbox.scm.azurewebsites.net/api/vfs/site/wwwroot/Authorization-Notification/",
-        //         "script_href": "https://notification-services-sandbox.scm.azurewebsites.net/api/vfs/site/wwwroot/Authorization-Notification/index.js",
-        //         "config_href": "https://notification-services-sandbox.scm.azurewebsites.net/api/vfs/site/wwwroot/Authorization-Notification/function.json",
-        //         "href": "https://notification-services-sandbox.scm.azurewebsites.net/api/functions/Authorization-Notification",
-        //         "config": {}
-        //     }
-        // },
+        {
+            "type": "Microsoft.Web/sites/functions",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('function_app_name'), '/Authorization-Notification')]",
+            "location": "[resourceGroup().location]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('function_app_name'))]"
+            ],
+            "properties": {
+                "script_root_path_href": "https://notification-services-sandbox.scm.azurewebsites.net/api/vfs/site/wwwroot/Authorization-Notification/",
+                "script_href": "https://notification-services-sandbox.scm.azurewebsites.net/api/vfs/site/wwwroot/Authorization-Notification/index.js",
+                "config_href": "https://notification-services-sandbox.scm.azurewebsites.net/api/vfs/site/wwwroot/Authorization-Notification/function.json",
+                "href": "https://notification-services-sandbox.scm.azurewebsites.net/api/functions/Authorization-Notification",
+                "config": {}
+            }
+        },
         {
             "type": "Microsoft.Web/sites/hostNameBindings",
             "apiVersion": "2018-11-01",
