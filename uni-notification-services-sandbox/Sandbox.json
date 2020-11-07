@@ -115,8 +115,14 @@
                         {
                             "name": "FUNCTIONS_WORKER_RUNTIME",
                             "value": "node"
+                        },                        
+                        {
+                            "name": "WEBSITE_RUN_FROM_PACKAGE",
+                            "value": "1"
                         }
-                    ]
+
+                    ],
+                    "alwaysOn": true
                 }
             }
         },
@@ -156,22 +162,22 @@
                 ]
             }
         },
-        {
-            "type": "Microsoft.Web/sites/functions",
-            "apiVersion": "2018-11-01",
-            "name": "[concat(parameters('function_app_name'), '/Authorization-Notification')]",
-            "location": "[resourceGroup().location]",
-            "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('function_app_name'))]"
-            ],
-            "properties": {
-                "script_root_path_href": "https://notification-services-sandbox.scm.azurewebsites.net/api/vfs/site/wwwroot/Authorization-Notification/",
-                "script_href": "https://notification-services-sandbox.scm.azurewebsites.net/api/vfs/site/wwwroot/Authorization-Notification/index.js",
-                "config_href": "https://notification-services-sandbox.scm.azurewebsites.net/api/vfs/site/wwwroot/Authorization-Notification/function.json",
-                "href": "https://notification-services-sandbox.scm.azurewebsites.net/api/functions/Authorization-Notification",
-                "config": {}
-            }
-        },
+        // {
+        //     "type": "Microsoft.Web/sites/functions",
+        //     "apiVersion": "2018-11-01",
+        //     "name": "[concat(parameters('function_app_name'), '/Authorization-Notification')]",
+        //     "location": "[resourceGroup().location]",
+        //     "dependsOn": [
+        //         "[resourceId('Microsoft.Web/sites', parameters('function_app_name'))]"
+        //     ],
+        //     "properties": {
+        //         "script_root_path_href": "https://notification-services-sandbox.scm.azurewebsites.net/api/vfs/site/wwwroot/Authorization-Notification/",
+        //         "script_href": "https://notification-services-sandbox.scm.azurewebsites.net/api/vfs/site/wwwroot/Authorization-Notification/index.js",
+        //         "config_href": "https://notification-services-sandbox.scm.azurewebsites.net/api/vfs/site/wwwroot/Authorization-Notification/function.json",
+        //         "href": "https://notification-services-sandbox.scm.azurewebsites.net/api/functions/Authorization-Notification",
+        //         "config": {}
+        //     }
+        // },
         {
             "type": "Microsoft.Web/sites/hostNameBindings",
             "apiVersion": "2018-11-01",
