@@ -58,15 +58,11 @@
             "name": "[parameters('serverfarm_name')]",
             "location": "[resourceGroup().location]",
             "sku": {
-                "name": "S1",
-                "tier": "Standard",
-                "size": "S1",
-                "family": "S",
-                "capacity": 1
+                "name": "Y1",
+                "tier": "Dynamic"
             },
             "properties": {
-                "perSiteScaling": true,
-                "maximumElasticWorkerCount": 100
+                "computeMode": "Dynamic"
             }
         },
         {
@@ -108,14 +104,14 @@
                             "name": "WEBSITE_NODE_DEFAULT_VERSION",
                             "value": "~12"
                         },
-                            {
-                                "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
-                                "value": "[reference(resourceId('microsoft.insights/components', parameters('authorisation-generator_insights_name')), '2020-02-02-preview').InstrumentationKey]"
-                            },
+                        {
+                            "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+                            "value": "[reference(resourceId('microsoft.insights/components', parameters('authorisation-generator_insights_name')), '2020-02-02-preview').InstrumentationKey]"
+                        },
                         {
                             "name": "FUNCTIONS_WORKER_RUNTIME",
                             "value": "node"
-                        },                        
+                        },
                         {
                             "name": "WEBSITE_RUN_FROM_PACKAGE",
                             "value": "1"
